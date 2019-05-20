@@ -12,9 +12,18 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::post('login', 'AuthController@login');
+
+// ESTADOS E CIDADES
+Route::get('locations/states', 'LocationsController@states');
+Route::get('locations/cities/{id}', 'LocationsController@cities');
+
+Route::group(['middleware'=>'jwt.auth'], function(){
+	Route::resource('user', 'UserController');
+	Route::resource('address', 'AddressController');
+	Route::resource('category', 'CategoryController');
+	Route::resource('product', 'ProductController');
+	Route::resource('order', 'OrderController');
+	Route::resource('delivery', 'DeliveryController');
+	Route::resource('store', 'StoreController');
+});
