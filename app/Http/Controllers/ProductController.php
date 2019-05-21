@@ -57,7 +57,7 @@ class ProductController extends Controller
             $this->saveSizes($request, $product);
             DB::commit();
 
-            return $this->success();
+            return $this->success('Produto criado com sucesso!');
         } catch (Exception $e) {
             DB::rollback();
 

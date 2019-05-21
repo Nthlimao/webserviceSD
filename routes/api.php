@@ -31,7 +31,9 @@ Route::get('product', 'ProductController@index');
 Route::get('product/{id}', 'ProductController@show');
 
 // PEDIDOS
-Route::resource('order', 'OrderController')->middleware(['jwt.auth', 'is.admin']);
+Route::resource('order', 'OrderController')->only(['update', 'index', 'destroy'])->middleware(['jwt.auth', 'is.admin']);
+Route::post('order', 'OrderController@store')->middleware(['jwt.auth']);
+Route::get('order/{id}', 'OrderController@show')->middleware(['jwt.auth']);
 
 // ENTREGAS E RETIRADAS
 Route::resource('delivery', 'DeliveryController')->middleware(['jwt.auth', 'is.admin']);

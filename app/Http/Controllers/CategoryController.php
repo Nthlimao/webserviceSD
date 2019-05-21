@@ -60,7 +60,7 @@ class CategoryController extends Controller
             $category->delete();
             return $this->success('Categoria deletada com sucesso!');
         } else {
-            return $this->error(self::INVALID_RESOURCE, 'Endereço inválido');
+            return $this->error(self::INVALID_RESOURCE, 'Categoria Inválida');
         }
     }
 }

@@ -25,7 +25,7 @@ class OrderController extends Controller
     }
 
     public function store(Request $request){
-    	$order = Order::createOrder($request->all());
+    	$order = Order::createOrder($this->user(), $request->all());
 
     	return $order;
     }
@@ -43,7 +43,7 @@ class OrderController extends Controller
         }
 
         $order->changeStatus($status);
-        return $this->success();
+        return $this->success($order);
     }
 
     public function destroy($id){}

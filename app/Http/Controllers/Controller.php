@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use JWTAuth;
+use Exception;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -17,6 +19,14 @@ class Controller extends BaseController
     public const INTERNAL_ERROR = 'INTERNAL_ERROR';
     public const INVALID_CREDENTIALS = 'INVALID_CREDENTIALS';
     public const PAGINATION_LIMIT = 15;
+
+    protected function user () {
+        try {
+            return JWTAuth::parseToken()->authenticate();
+        } catch (Exception $e) {
+            return null;
+        }
+    }
 
     protected function success($result = null){
         return response()->json([

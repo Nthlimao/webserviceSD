@@ -44,7 +44,7 @@ class StoreController extends Controller
     	$store->save();
 
         $order->changeStatus(Order::IN_STORE);
-        return $this->success();
+        return $this->success($store);
     }
 
     public function update(Request $request, $id){
@@ -60,7 +60,7 @@ class StoreController extends Controller
     	}
 
     	$order->changeStatus($status);
-    	return $this->success();
+    	return $this->success($order);
     }
 
     public function destroy($id){}

@@ -58,7 +58,7 @@ class Order extends Model
         $this->save();
     }
     
-    public static function createOrder($data) {
+    public static function createOrder(User $client, $data) {
         $products = self::formatProductData($data['items']);
         self::checkStock($products);
 
@@ -70,8 +70,7 @@ class Order extends Model
             $order = new self();
             $order->fill($costs);
 
-            // $order->client_id = $client->id;
-            $order->client_id = 3;
+            $order->client_id = $client->id;
             $order->payment_method   = $data["payment_method"];
             $order->delivery_method  = $data["delivery_method"];
             $order->delivery_address = $data["delivery_address"];
@@ -100,7 +99,7 @@ class Order extends Model
 
             DB::commit();
 
-            return $order->id;
+            return $order;
         } catch (Exception $e) {
             DB::rollback();
             throw $e;
