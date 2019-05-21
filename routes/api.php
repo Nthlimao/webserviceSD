@@ -17,10 +17,12 @@ Route::group(['middleware' => 'jwt.auth'], function ($api) {
 	Route::get('account/profile', 'AccountController@view');
 	Route::put('account/profile', 'AccountController@update');
 	Route::resource('account/address', 'AccountAddressesController');
+	Route::resource('account/order', 'AccountOrdersController')->only(['index', 'show']);
 });
 
 // AUTH
 Route::post('login', 'AuthController@login');
+Route::post('register', 'AuthController@register');
 
 // ESTADOS E CIDADES
 Route::get('locations/states', 'LocationsController@states');
