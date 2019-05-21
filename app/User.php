@@ -23,6 +23,10 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Address::class, 'user_id');
     }
 
+    public function isAdmin () {
+        return $this->role === User::ADMIN;
+    }
+
     public function rules() {
         return [
             'fullname'      => 'required',

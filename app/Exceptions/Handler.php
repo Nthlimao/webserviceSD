@@ -46,8 +46,51 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $exception)
-    {
-        return parent::render($request, $exception);
+    public function render($request, Exception $exception) {
+        if ($exception instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
+            return $this->displayError('TOKEN_EXPIRED', 'Sua sessão expirou.', $exception->getStatusCode(), $exception);
+        }
+
+        if ($exception instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
+            return $this->displayError('TOKEN_INVALID', 'Token de acesso inválido.', $exception->getStatusCode(), $exception);
+        }
+        
+        if ($exception instanceof \Tymon\JWTAuth\Exceptions\JWTException) {
+            return $this->displayError('JWT_EXCEPTION', 'Você precisa estar logado.', $exception->getStatusCode(), $exception);
+        }
+        
+        if ($exception instanceof \Tymon\JWTAuth\Exceptions\TokenBlacklistedException){
+            return $this->displayError('TOKEN_BLACKLISTED', 'Seu token de acesso se encontra na blacklist.', $exception->getStatusCode(), $exception);
+        }
+
+        if ($exception instanceof AppException) {
+            return $exception->response();
+        }
+
+        return $this->displayError(
+            'INTERNAL_ERROR',
+            'Ocorreu um erro ao tentar processar a requisição.',
+            500,
+            $exception
+        );
+    }
+
+    private function displayError ($code, $message, $status = 500, $exception = null) {
+        $response = [
+            'status' => 'ERROR',
+            'error' => [
+                'code' => $code,
+                'message' => $message
+            ],
+        ];
+
+        if (env('APP_DEBUG', false)) {
+            $response['exception'] = [
+                'message' => $exception->getMessage(),
+                'file' => $exception->getFile() . ':' . $exception->getLine()
+            ];
+        }
+
+        return response()->json($response, $status);
     }
 }

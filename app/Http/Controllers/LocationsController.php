@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\State;
+use App\City;
 
 class LocationsController extends Controller
 {
@@ -18,21 +19,8 @@ class LocationsController extends Controller
     }
 
     public function cities($id) {
+        $cities = City::where('state_id', $id)->get();
 
-
-        if (is_string($id) && !ctype_digit($id)) {
-            $query = City::join('states', 'states.id', 'state_id')
-                ->where('states.abbrv', $id)
-                ->select('cities.*');
-            $search = $request->input('q', null);
-            if (!empty($search)) {
-                $query->where('cities.name', 'like', "%{$search}%")
-                    ->limit(10);
-            }
-            $cities = $query->get();
-        } else {
-            $cities = City::where(['state_id' => $id])->get();
-        }
         if ($cities) {
             return $this->success($cities);
         } else {

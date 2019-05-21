@@ -11,30 +11,20 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AuthController extends Controller
 {
-    public function login(Request $request)
-    {
-    	$credentials = $request->only('email', 'password');
-    	$rules = [
-            'email' => 'required|email',
-            'password' => 'required',
-        ];
+    public function login(Request $request) {
+        $credentials = $request->only('email', 'password');
+        $token = JWTAuth::attempt($credentials);
 
-        $validator = Validator::make($credentials, $rules);
-
-        if($validator->fails()) {
-            return response()->json(['success'=> false, 'error'=> $validator->messages()], 401);
+        if ($token) {
+            JWTAuth::setToken($token);
+            $user = JWTAuth::toUser($token);
+            
+            return $this->success([
+                'token' => $token,
+                'user' => JWTAuth::toUser($token)
+            ]);
+        } else {
+            return $this->error(self::INVALID_CREDENTIALS, 'Email e/ou senha inválidos.');
         }
-        
-        try {
-            // attempt to verify the credentials and create a token for the user
-            if (! $token = JWTAuth::attempt($credentials)) {
-                return response()->json(['success' => false, 'error' => 'We cant find an account with this credentials. Please make sure you entered the right information and you have verified your email address.'], 404);
-            }
-        } catch (JWTException $e) {
-            // something went wrong whilst attempting to encode the token
-            return response()->json(['success' => false, 'error' => 'Failed to login, please try again.'], 500);
-        }
-        // all good so return the token
-        return response()->json(['success' => true, 'data'=> [ 'token' => $token ]], 200);
     }
 }
