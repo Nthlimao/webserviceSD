@@ -41,8 +41,7 @@ class Address extends Model
             'zipcode'      => 'required',
             'neighborhood' => 'required',
             'city_id'      => 'required',
-            'state_id'     => 'required',
-            'user_id'      => 'required'
+            'state_id'     => 'required'
         ];
     }
 
@@ -52,8 +51,7 @@ class Address extends Model
             'zipcode.required'       => 'Por favor, insira o CEP',
             'neighborhood.required'  => 'Por favor, insira o Bairro',
             'state_id.required'      => 'Por favor, selecione o Estado',
-            'city_id.required'       => 'Por favor, selecione a Cidade',
-            'user_id.required'       => 'Nenhum usuário selecionado, por favor tente novamente mais tarde'
+            'city_id.required'       => 'Por favor, selecione a Cidade'
         ];
     }
 }
