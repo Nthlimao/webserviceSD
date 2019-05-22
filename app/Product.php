@@ -18,7 +18,6 @@ class Product extends Model
     	'featured_photo_url',
     	'permanent_link',
     	'price',
-    	'color',
     	'quantity',
     	'reference',
     	'featured'
