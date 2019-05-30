@@ -38,5 +38,7 @@ class ProductSizesSeeder extends Seeder
         	['id' => 23, 'name' => 'M', 'product_id' => 10],
         	['id' => 24, 'name' => 'G', 'product_id' => 10]
         ];
+
+        ProductSize::insert($sizes);
     }
 }

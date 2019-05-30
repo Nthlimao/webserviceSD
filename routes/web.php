@@ -10,10 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
- 
- Route::group(['middleware'=>'jwt.auth'], function(){
-	Route::get('/', function () {
-	    return view('welcome');
-	});
- });
+Route::group(['middleware'=>'jwt.auth'], function(){});
+Route::get('/', function () {
+	return view('index');
+});

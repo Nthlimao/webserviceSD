@@ -36,5 +36,7 @@ class ProductColorsSeeder extends Seeder
         	['id' => 21, 'name' => 'Mesclado', 'product_id' => 10],
         	['id' => 22, 'name' => 'Vinho', 'product_id' => 10]
         ];
+
+        ProductColor::insert($colors);
     }
 }

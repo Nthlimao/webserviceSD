@@ -1,0 +1,49 @@
+.btn{
+    display: inline-flex;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    padding: 10px 14px;
+    text-transform: uppercase;
+    .feather {
+        margin-right: 8px;
+        max-height: 16px;
+    }
+    &.btn-primary{
+        color: #fff;
+        background-color: #1fc8db;
+        border-color: #1fc8db;
+        &:hover,
+        &:not(:disabled):not(.disabled):active,
+        &:not(:disabled):not(.disabled).active,
+        &:active{
+            color: #fff;
+            background-color: #1cb7c8;
+            border-color: #1cb7c8;
+        }
+        &:not(:disabled):not(.disabled):active:focus,
+        &:not(:disabled):not(.disabled).active:focus,
+        &:focus{
+            box-shadow: 0 0 0 0.2rem rgba(31, 200, 219, 0.5);
+        }
+    }
+    &.btn-secondary{
+        color: #fff;
+        background-color: #262d4a;
+        border-color: #262d4a;
+        &:hover,
+        &:not(:disabled):not(.disabled):active,
+        &:not(:disabled):not(.disabled).active,
+        &:active{
+            color: #fff;
+            background-color: #1f2642;
+            border-color: #1f2642;
+        }
+        &:not(:disabled):not(.disabled):active:focus,
+        &:not(:disabled):not(.disabled).active:focus,
+        &:focus{
+            box-shadow: 0 0 0 0.2rem rgba(38, 45, 74, 0.5);
+        }
+    }
+}

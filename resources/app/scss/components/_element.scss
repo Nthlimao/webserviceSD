@@ -1,0 +1,50 @@
+.element{
+    .element-header{
+        position: relative;
+        padding: 0 40px 30px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    .element-title{
+        font-family: 'Montserrat', sans-serif;
+        display: flex;
+        align-items: center;
+        color: $color_4;
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 5px;
+        text-transform: uppercase;
+        .feather {
+            color: $color_2;
+            max-height: 20px;
+            margin-right: 8px;
+        }
+        span {
+            display: block;
+            margin-top: 3px;
+        }
+    }
+    .element-subtitle {
+        color: #676884;
+        font-size: 14px;
+        font-weight: 400;
+    }
+    .element-actions{
+        display: flex;
+        justify-content: flex-end;
+        > .btn{
+            margin: 0 5px;
+            &:last-of-type{
+                margin-right: 0;
+            }
+        }
+    }
+    .element-inner{
+        padding: 20px 40px;
+    }
+    .element-box{
+        border-radius: 4px;
+        padding: 20px;
+        background: #FFFFFF;
+        margin-bottom: 25px;
+    }
+}

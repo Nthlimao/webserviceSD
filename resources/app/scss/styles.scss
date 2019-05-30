@@ -1,0 +1,16 @@
+// Variables
+@import 'resets';
+@import 'base';
+@import 'variables';
+@import 'utils';
+
+.container {
+	width: 100%;
+	max-width: 1200px;
+	padding: 0 15px;
+	margin: 0 auto;
+}
+
+@import 'site/header';
+@import 'site/home';
+@import 'site/internal';

@@ -22,7 +22,7 @@ class ProductController extends Controller
     }
 
     public function show($id){
-    	$product = Product::with(['category', 'photos'])->find($id);
+    	$product = Product::with(['category', 'photos', 'colors', 'sizes'])->find($id);
 
         if ($product) {
             return $this->success($product);

@@ -1,0 +1,153 @@
+.header{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 999;
+	.toolbar{
+		position: relative;
+		background: #151821;
+		.toolbar-inner{
+			display: flex;
+			height: 45px;
+			align-items: center;
+			justify-content: space-between;
+		}
+		.toolbar-contact{
+			display: flex;
+			align-items: center;
+			.contact-text{
+				display: block;
+				color: #737987;
+				font-size: 13px;
+				font-weight: 600;
+				line-height: 20px;
+				margin: 0 4px;
+				transition: all ease .3s;
+				&:hover{
+					color: #FFFFFF;
+				}
+			}
+		}
+		.toolbar-links{
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			color: #737987;
+			font-size: 13px;
+			font-weight: 600;
+			line-height: 20px;
+			.toolbar-links-a{
+				color: #737987;
+				font-size: 13px;
+				font-weight: 600;
+				line-height: 20px;
+				margin: 0 4px;
+				transition: all ease .3s;
+				&:hover{
+					color: #FFFFFF;
+				}
+			}
+		}
+	}
+	.navbar{
+		position: relative;
+		display: block;
+		width: 100%;
+		.navbar-inner{
+			position: relative;
+			display: flex;
+			height: 90px;
+			align-items: center;
+			justify-content: space-between;
+		}
+		.navbar-logo{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			img {
+				display: block;
+				margin:20px 10px 20px 0;
+				width: auto;
+				height: 50px;
+			}
+			.navbar-title{
+				font-family: 'Montserrat', sans-serif;
+				font-weight: 600;
+				font-size: 14px;
+				color: #FFFFFF;
+				text-transform: uppercase;
+				margin: 0 0 0 10px;
+				padding: 10px 15px;
+				letter-spacing: -0.3px;
+				border-left: 1px solid rgba(115,121,135,0.4);
+				span{
+					letter-spacing: 0.5px;
+				}
+			}
+		}
+		.navbar-menu{
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			.navbar-menu-active{
+				display: block;
+				position: absolute;
+				bottom: 7px;
+				left: 0;
+				width: 0;
+				height: 3px;
+				background: $color_2;
+				transition: all ease .3s;
+			}
+			.navbar-menu-link{
+				display: block;
+				margin: 0 30px 0 0; 
+				font-family: 'Montserrat', sans-serif;
+				padding: 15px 0;
+				color: #FFFFFF; 
+				font-size: 14px;
+				font-weight: 600;
+				line-height: 20px;
+				letter-spacing: -0.3px;
+				text-transform: uppercase;
+				&:first-of-type {
+					margin-left:0;
+				}				
+				&:last-of-type {
+					margin-right:0;
+				}
+			}
+		}
+	}
+	&.fixed{
+		position: fixed;
+		animation-name: menuInDown;
+		animation-delay: .2s;
+		animation-duration: .5s;
+	  	animation-fill-mode: both;
+		// .toolbar{
+		// 	display: none;
+		// }
+		.navbar{
+			background: #2b3042;
+			// .navbar-inner{
+			// 	height: 60px;
+			// }
+			// .navbar-logo{
+			// 	.navbar-title{
+			// 		font-size: 12px;
+			// 	}
+			// 	img {
+			// 		height: 30px;
+			// 	}
+			// }
+			// .navbar-menu{
+			// 	.navbar-menu-link{
+			// 		font-size: 12px;
+			// 	}
+			// }
+		}
+	}
+}

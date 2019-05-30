@@ -1,0 +1,26 @@
+.v-select {
+	.dropdown-toggle{
+		height: 39px;
+		border-color: rgba(0, 0, 0, 0.08)!important;
+		&:after{
+			display: none;
+		}
+		.open-indicator{
+			&:before{
+				border-width: 2px 2px 0 0!important;
+				height: 8px!important;
+				width: 8px!important;
+				transition: all ease .3s!important;
+			}
+		}
+	}
+	.dropdown-menu{
+		border-color: rgba(0, 0, 0, 0.08)!important;
+		box-shadow: none!important;
+		.highlight{
+			a {
+				background: $color_2!important;
+			}
+		}
+	}
+}

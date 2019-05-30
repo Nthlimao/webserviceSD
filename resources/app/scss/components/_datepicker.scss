@@ -1,0 +1,17 @@
+.mx-datepicker{
+	display: block!important;
+	width: 100%!important;
+	.mx-input{
+		height: 39px;
+		box-shadow: none;
+		border-color: rgba(0, 0, 0, 0.08);
+	}
+	.mx-input-append{
+		display: none;
+	}
+	&.has-danger {
+		.form-control{
+			border-color: red;
+		}
+	}
+}

@@ -20,7 +20,7 @@ class CategorySeeder extends Seeder
     		['id' => 4, 'name' => 'Moletom'],
     		['id' => 5, 'name' => 'Jaqueta'],
     		['id' => 6, 'name' => 'Pijama'],
-    		['id' => 7, 'name' => 'Mochila Saco']
+    		['id' => 7, 'name' => 'Mochila Saco'],
             ['id' => 8, 'name' => 'Boné']
     	];
 

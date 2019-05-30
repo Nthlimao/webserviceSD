@@ -1,10 +1,8 @@
 const IS_RELEASE = (process.argv.indexOf('release') >= 0);
 const IS_DEV = !IS_RELEASE;
 const gulp = require('gulp');
-const path = require('path');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
-const browserify = require('gulp-browserify');
 const watch = require('gulp-watch');
 const sass = require('gulp-sass');
 const include = require('gulp-include');
@@ -14,27 +12,10 @@ const babel = require('gulp-babel');
 const tpl2js = require('gulp-vue-js-template');
 const closure = require('gulp-append-prepend');
 const $if = require('gulp-if');
-const notify = require('gulp-notify');
-const emptyPipe = require('gulp-empty-pipe');
-const minify = require('gulp-minify');
 
-function notifyCall (title, message, icontype) {
-    if (IS_RELEASE) {
-        return emptyPipe();
-    } else {
-        return notify({
-            title: title,
-            message: message + ' (<%= file.relative %>)'
-        });
-    }
-}
-
-// SITE
-gulp.task('app-site-sass', () => {
+gulp.task('app-sass', () => {
     gulp.src([
-        'resources/site/app.scss',
-        'resources/site/components/**/*.scss',
-        'resources/site/pages/**/*.scss',
+        'resources/app/scss/app.scss'
     ])
         .pipe(plumber())
         .pipe($if(IS_DEV, sourcemaps.init()))
@@ -42,20 +23,14 @@ gulp.task('app-site-sass', () => {
         .pipe(sass({ outputStyle: 'compressed' }))
         .pipe(concat('app.css'))
         .pipe($if(IS_DEV, sourcemaps.write('.')))
-        .pipe(gulp.dest('public/dist/site/css/'))
-        .pipe(notifyCall('Sass', '🦄 Compilado com sucesso', 'sass.png'))
+        .pipe(gulp.dest('public/dist/css/'));
 });
 
-gulp.task('app-site-js', () => {
+gulp.task('app-js', () => {
     gulp.src([
-        'resources/site/kernel/**/*.js',
-        'resources/site/providers/**/*.js',
-        'resources/site/middlewares/**/*.js',
-        'resources/site/validators/**/*.js',
-        'resources/site/filters/**/*.js',
-        'resources/site/components/**/*.js',
-        'resources/site/pages/**/*.js',
-        'resources/site/app.js'
+        'resources/app/components/**/*.js',
+        'resources/app/pages/**/*.js',
+        'resources/app/js/app.js',
     ])
         .pipe(plumber())
         .pipe(tpl2js())
@@ -68,15 +43,13 @@ gulp.task('app-site-js', () => {
         .pipe($if(IS_RELEASE, closure.prependText('/*-start-*/(function(){', '\n\n')))
         .pipe($if(IS_RELEASE, closure.appendText('})();/*-end-*/', '\n\n')))
 
-        .pipe(browserify())
         .pipe(uglify())
         .pipe($if(IS_DEV, sourcemaps.write('.')))
-        .pipe(gulp.dest('public/dist/site/js/'))
-        .pipe(notifyCall('JS App', '🦄 Compilado com sucesso', 'js.png'));
+        .pipe(gulp.dest('public/dist/js/'));
 });
 
-gulp.task('vendor-site-sass', () => {
-    gulp.src('resources/site/vendor/vendor.scss')
+gulp.task('vendor-sass', () => {
+    gulp.src('resources/app/vendor/vendor.scss')
         .pipe(plumber())
         .pipe($if(IS_DEV, sourcemaps.init()))
         .pipe(include())
@@ -84,35 +57,43 @@ gulp.task('vendor-site-sass', () => {
         .pipe(sass())
         .pipe(concat('vendor.css'))
         .pipe($if(IS_DEV, sourcemaps.write('.')))
-        .pipe(gulp.dest('public/dist/site/css/'))
-        .pipe(notifyCall('Sass Vendor', '🦄 Compilado com sucesso', 'sass.png'));
+        .pipe(gulp.dest('public/dist/css/'));
 });
 
-gulp.task('vendor-site-js', () => {
-    gulp.src('resources/site/vendor/vendor.js')
+gulp.task('vendor-js', () => {
+    gulp.src('resources/app/vendor/vendor.js')
         .pipe(plumber())
         .pipe($if(IS_DEV, sourcemaps.init()))
         .pipe(include())
         .pipe(concat('vendor.js'))
         .pipe($if(IS_DEV, sourcemaps.write('.')))
-        .pipe(gulp.dest('public/dist/site/js/'))
-        .pipe(notifyCall('JS Vendor', '🦄 Compilado com sucesso', 'js.png'));
+        .pipe(gulp.dest('public/dist/js/'));
 });
 
-gulp.task('watch-site', () => {
+// gulp.task('jquery-js', () => {
+//     gulp.src('resources/jquery/**/*.js')
+//         .pipe(plumber())
+//         .pipe($if(IS_DEV, sourcemaps.init()))
+//         .pipe(include())
+//         .pipe(concat('site.js'))
+//         .pipe($if(IS_DEV, sourcemaps.write('.')))
+//         .pipe(gulp.dest('public/js/'));
+// });
+
+
+gulp.task('watch', () => {
     // App
-    watch(['resources/site/**/*.js', 'resources/site/**/*.html'], () => gulp.start('app-site-js'));
-    watch(['resources/site/*.scss', 'resources/site/pages/**/*.scss', 'resources/site/components/**/*.scss'], () => gulp.start('app-site-sass'));
-
+    watch(['resources/app/**/*.js', 'resources/app/**/*.html'], () => gulp.start('app-js'));
+    watch(['resources/scss/*.scss', 'resources/scss/**/*.scss'], () => gulp.start('app-sass'));
     // Vendor
-    watch(['resources/site/vendor/**/*.js'], () => gulp.start('vendor-site-js'));
-    // watch(['resources/site/vendor/**/*.scss'], () => gulp.start('vendor-site-sass'));
+    watch(['resources/app/vendor/*.js'], () => gulp.start('vendor-js'));
 });
 
-// END SITE
+// gulp.task('watch-site', () => {
+//     // Vendor
+//     watch(['resources/jquery/**/*.js'], () => gulp.start('jquery-js'));
+// });
 
-gulp.task('site', ['app-site-sass', 'app-site-js', 'vendor-site-sass', 'vendor-site-js', 'watch-site']);
-gulp.task('release', [
-    // site
-    'app-site-sass', 'app-site-js', 'vendor-site-sass', 'vendor-site-js'
-]);
+gulp.task('default', ['app-sass', 'app-js', 'vendor-sass', 'vendor-js', 'watch']);
+gulp.task('release', ['app-sass', 'app-js', 'vendor-sass', 'vendor-js']);
+// gulp.task('site', ['jquery-js', 'watch-site']);

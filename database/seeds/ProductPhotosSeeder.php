@@ -32,5 +32,7 @@ class ProductPhotosSeeder extends Seeder
         	['id' => 18, 'photo_url' => 'https://www.rstextil.com.br/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/m/e/mescla_199.jpg', 'product_id' => 10],
         	['id' => 19, 'photo_url' => 'https://www.rstextil.com.br/media/catalog/product/cache/1/image/17f82f742ffe127f42dca9de82fb58b1/v/i/vinho_134.jpg', 'product_id' => 10]
         ];
+
+        ProductPhoto::insert($photos);
     }
 }

@@ -1,0 +1,22 @@
+// FLEXBOX
+
+.align-center{
+  align-items: center;  
+}
+
+.text-orange {
+	color: $orange;
+}
+
+// ANIMATIONS
+
+@keyframes menuInDown {
+  from {
+    transform: translateY(-100%);
+    visibility: visible;
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
