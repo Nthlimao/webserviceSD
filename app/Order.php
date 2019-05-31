@@ -42,7 +42,7 @@ class Order extends Model
     }
 
     public function items() {
-        return $this->hasMany(OrderItem::class, 'order_id');
+        return $this->hasMany(OrderItem::class, 'order_id')->with(['product', 'color', 'size']);
     }
 
     public function delivery() {
@@ -112,13 +112,13 @@ class Order extends Model
         $output = [];
 
         foreach ($items as $item) {
-            $product = Product::with(['colors', 'sizes'])->find($item['product_id']);
+            $product = Product::with(['colors', 'sizes'])->find($item['item']['id']);
             $colors  = $product["colors"];
             $sizes   = $product["sizes"];
 
-            if(isset($item["color_id"])){
+            if(isset($item['item']["color"])){
                 foreach($colors as $color){
-                    if($color["id"] === $item["color_id"]){
+                    if($color["id"] === $item["item"]["color"]["id"]){
                         $hasColor = true;
                         break;
                     }
@@ -127,9 +127,9 @@ class Order extends Model
                 $hasColor = true;
             }
 
-            if(isset($item["size_id"])){
+            if(isset($item['item']["size"])){
                 foreach($sizes as $size){
-                    if($size["id"] === $item["size_id"]){
+                    if($size["id"] === $item["item"]["size"]["id"]){
                         $hasSize = true;
                         break;
                     }
@@ -144,9 +144,9 @@ class Order extends Model
 
             $output[] = [
                 'product' => $product,
-                'color' => isset($item['color_id']) ? $item['color_id'] : null,
-                'size'  => isset($item['size_id']) ? $item['size_id'] : null,
-                'quantity' => $item['quantity']
+                'color' => isset($item["item"]["color"]["id"]) ? $item["item"]["color"]["id"] : null,
+                'size'  => isset($item["item"]["size"]["id"]) ? $item["item"]["size"]["id"] : null,
+                'quantity' => $item['amount']
             ];
 
             $hasColor = false;

@@ -9,7 +9,7 @@ class AccountOrdersController extends Controller
 {
     public function index(){
     	$user = $this->user();
-    	$orders = Order::with(['items', 'delivery', 'store'])->where('client_id', $user->id)->get();
+    	$orders = Order::where('client_id', $user->id)->get();
     	return $this->success($orders);
     }
 
