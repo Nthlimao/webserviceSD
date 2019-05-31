@@ -49,7 +49,6 @@ class AuthController extends Controller
             }
         }
 
-
         $user->fill($request->all());
         $user->password = bcrypt($user->password);
 
@@ -60,6 +59,7 @@ class AuthController extends Controller
 
         $user->save();
         $token = JWTAuth::fromUser($user);
+        JWTAuth::setToken($token);
         
         return $this->success([
             'token' => $token,

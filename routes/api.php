@@ -37,6 +37,7 @@ Route::get('category/{id}', 'CategoryController@show');
 Route::resource('product', 'ProductController')->only(['update', 'store', 'destroy'])->middleware(['jwt.auth', 'is.admin']);
 Route::get('product', 'ProductController@index');
 Route::get('product/{id}', 'ProductController@show');
+Route::get('product/categories/{id}', 'ProductController@categories');
 
 // PEDIDOS
 Route::resource('order', 'OrderController')->only(['update', 'index', 'destroy'])->middleware(['jwt.auth', 'is.admin']);

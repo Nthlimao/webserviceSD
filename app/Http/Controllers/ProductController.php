@@ -21,6 +21,12 @@ class ProductController extends Controller
         return $this->success($products);
     }
 
+    public function categories($id){
+        $products = Product::with('category')->where('category_id', $id)->get();
+        
+        return $this->success($products);
+    }
+
     public function show($id){
     	$product = Product::with(['category', 'photos', 'colors', 'sizes'])->find($id);
 
